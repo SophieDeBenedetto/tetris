@@ -78,7 +78,7 @@ defmodule Tetris.BrickTest do
     □■□□
     □■□□
     □■□□
-    {40, 0}
+    {#{x_center()}, 0}
     false
     0
     """

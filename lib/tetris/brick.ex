@@ -1,6 +1,9 @@
 defmodule Tetris.Brick do
   alias Tetris.Points
-  defstruct name: :i, location: {40, 0}, rotation: 0, reflection: false
+  @x_center 40
+  def x_center, do: @x_center
+  defstruct name: :i, location: {@x_center, 0}, rotation: 0, reflection: false
+
 
   @spec new :: Tetris.Brick.t()
   def new(attributes \\ []), do: __MODULE__.__struct__(attributes)
@@ -9,7 +12,7 @@ defmodule Tetris.Brick do
   def new_random do
     %__MODULE__{
       name: random_name(),
-      location: {40, 0},
+      location: {x_center(), 0},
       rotation: random_rotation(),
       reflection: random_reflection()
     }
@@ -131,6 +134,18 @@ defmodule Tetris.Brick do
 
     brick
   end
+
+  def render(brick) do
+    brick
+    |> points()
+    |> Points.with_color(color(brick))
+  end
+
+  def color(%{name: :i}), do: :red
+  def color(%{name: :l}), do: :blue
+  def color(%{name: :z}), do: :green
+  def color(%{name: :o}), do: :orange
+  def color(%{name: :t}), do: :yellow
 
   defimpl Inspect, for: Tetris.Brick do
     import Inspect.Algebra
