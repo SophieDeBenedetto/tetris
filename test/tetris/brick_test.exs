@@ -51,16 +51,39 @@ defmodule Tetris.BrickTest do
   end
 
   test "should flip, rotate, flip and mirror points" do
-    points =
-      [{1,1}]
-      |> Points.mirror()
-      |> assert_point({4,1})
-      |> Points.flip()
-      |> assert_point({4,4})
-      |> Points.rotate_90()
-      |> assert_point({1,4})
-      |> Points.rotate_90()
-      |> assert_point({1,1})
+    [{1, 1}]
+    |> Points.mirror()
+    |> assert_point({4, 1})
+    |> Points.flip()
+    |> assert_point({4, 4})
+    |> Points.rotate_90()
+    |> assert_point({1, 4})
+    |> Points.rotate_90()
+    |> assert_point({1, 1})
+  end
+
+  test "Should convert brick to string" do
+    brick_string =
+      new()
+      |> Tetris.Brick.to_string()
+
+    assert brick_string == "□■□□\n□■□□\n□■□□\n□■□□"
+  end
+
+  test "Should inspect bricks" do
+    actual = new() |> inspect()
+
+    expected = """
+    □■□□
+    □■□□
+    □■□□
+    □■□□
+    {40, 0}
+    false
+    0
+    """
+
+    assert expected == "#{actual}\n"
   end
 
   def assert_point([points] = actual, expected) do
