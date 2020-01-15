@@ -40,48 +40,39 @@ defmodule TetrisWeb.TetrisLive do
       state: :playing,
       score: 0
     )
-    |> new_block()
+    |> new_brick()
     |> show()
   end
 
-  defp new_block(socket) do
-    brick =
-      Tetris.Brick.new_random()
-      |> Map.put(:location, {3, 1})
-
-    assign(socket, brick: brick)
+  defp new_brick(socket) do
+    assign(socket, brick: Tetris.new_brick())
   end
 
   defp show(%{assigns: %{brick: brick}} = socket) do
-    points =
-      brick
-      |> Tetris.Brick.prepare
-      |> Tetris.Points.move_to_location(brick.location)
-      |> Tetris.Points.with_color(Tetris.Brick.color(brick))
-
+    points = Tetris.points_for_brick(brick)
     assign(socket, boxes: boxes(points))
   end
 
   def move(direction, socket) do
     socket
-      |> assign(:brick, do_move(socket, direction))
+      |> do_move(direction)
       |> show()
   end
 
-  defp do_move(%{assigns: %{brick: brick}}, :left) do
-    Tetris.Brick.left(brick)
+  defp do_move(%{assigns: %{brick: brick}} = socket, :left) do
+    assign(socket, :brick, Tetris.move_left(brick))
   end
 
-  defp do_move(%{assigns: %{brick: brick}}, :right) do
-    Tetris.Brick.right(brick)
+  defp do_move(%{assigns: %{brick: brick}} = socket, :right) do
+    assign(socket, :brick, Tetris.move_right(brick))
   end
 
-  defp do_move(%{assigns: %{brick: brick}}, :down) do
-    Tetris.Brick.down(brick)
+  defp do_move(%{assigns: %{brick: brick}} = socket, :down) do
+    assign(socket, :brick, Tetris.move_down(brick))
   end
 
-  defp do_move(%{assigns: %{brick: brick}}, :turn) do
-    Tetris.Brick.spin_90(brick)
+  defp do_move(%{assigns: %{brick: brick}} = socket, :turn) do
+    assign(socket, :brick, Tetris.spin_90(brick))
   end
 
   defp boxes(points_with_colors) do
