@@ -61,7 +61,8 @@ config :tetris, TetrisWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/tetris_web/{live,views}/.*(ex)$",
-      ~r"lib/tetris_web/templates/.*(eex)$"
+      ~r"lib/tetris_web/templates/.*(eex)$",
+      ~r"lib/tetris_web/live/.*(ex)$"
     ]
   ]
 

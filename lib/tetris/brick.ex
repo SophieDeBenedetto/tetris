@@ -145,7 +145,7 @@ defmodule Tetris.Brick do
   def color(%{name: :l}), do: :blue
   def color(%{name: :z}), do: :green
   def color(%{name: :o}), do: :orange
-  def color(%{name: :t}), do: :yellow
+  def color(%{name: :t}), do: :grey
 
   defimpl Inspect, for: Tetris.Brick do
     import Inspect.Algebra
