@@ -39,16 +39,16 @@ defmodule Tetris.BrickTest do
            ]
   end
 
-  test "Should translate a list of poits" do
-    brick = new(%{name: :l})
+  # test "Should translate a list of poits" do
+  #   brick = new(%{name: :l})
 
-    points =
-      brick
-      |> points()
-      |> Points.translate({1, 1})
+  #   points =
+  #     brick
+  #     |> points()
+  #     |> Points.translate({1, 1})
 
-    assert points == [{3, 2}, {3, 3}, {3, 4}, {4, 4}]
-  end
+  #   assert points == [{3, 2}, {3, 3}, {3, 4}, {4, 4}]
+  # end
 
   test "should flip, rotate, flip and mirror points" do
     [{1, 1}]
